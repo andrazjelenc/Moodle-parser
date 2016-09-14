@@ -1,17 +1,24 @@
 <?php
 require_once '\Moodle.php';
+require_once '\Parser.php';
 
+$prs = new Parser();
 $md = new Moodle();
-$md = new Moodle();
-$md->username = 'username';
-$md->password = 'password';
-$md->cert = getcwd() . '\cacert.pem';
+
+$md->username = 'usre';
+$md->password = 'pswd';
+$md->cert = getcwd() . '\cacert.pem'; //certs
 
 $md->login();
-var_dump($md->token);
-$data = $md->parse(75);
+$html = $md->parse(75); //page id to parse
 
-var_dump($data);
+$prs->html = $html;
+
+$news = $prs->getNews();
+$links = $prs->getMainLinks();
+
+print_r($news);
+print_r($links);
 
 $md->logout();
 
